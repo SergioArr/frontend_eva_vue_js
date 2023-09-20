@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Programación Frontend</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Styles CSS -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Programación Frontend</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="#" v-on:click="limpiarFormulario('calculo'), selectedOption = 'calculo'">Cálculo de Calificaciones</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" v-on:click="limpiarFormulario('registro'), selectedOption = 'registro'">Formulario de Registro</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Formulario de Cálculo de Calificaciones -->
+    <div v-if="selectedOption === 'calculo'" class="container mt-4">
+      <h2>Cálculo de Calificaciones</h2>
+      <form>
+        <div class="form-group">
+          <label for="nota1">Nota 1:</label>
+          <input type="number" class="form-control" id="nota1" v-model="nota1" :class="{ 'is-invalid': nota1Error }" placeholder="Nota 1">
+          <div class="invalid-feedback" v-if="nota1Error">La nota debe estar entre 10 y 70</div>
+        </div>
+        <div class="form-group">
+          <label for="nota2">Nota 2:</label>
+          <input type="number" class="form-control" id="nota2" v-model="nota2" :class="{ 'is-invalid': nota2Error }" placeholder="Nota 2">
+          <div class="invalid-feedback" v-if="nota2Error">La nota debe estar entre 10 y 70</div>   
+        </div>
+        <div class="form-group">
+          <label for="nota3">Nota 3:</label>
+          <input type="number" class="form-control" id="nota3" v-model="nota3" :class="{ 'is-invalid': nota3Error }" placeholder="Nota 3">
+          <div class="invalid-feedback" v-if="nota3Error">La nota debe estar entre 10 y 70</div>   
+        </div>
+        <div class="form-group">
+          <label for="asistencia">Asistencia %:</label>
+          <input type="number" class="form-control" id="asistencia" v-model="asistencia" :class="{ 'is-invalid': asistenciaError }" placeholder="Asistencia">
+          <div class="invalid-feedback" v-if="asistenciaError">La asistencia debe estar entre 0 y 100</div>   
+        </div>
+      <!-- Botón de calcular -->
+    <button type="button" class="btn btn-primary mt-3" v-on:click="calcularPromedio">Calcular</button>
+
+      <!-- Resultados -->
+      <div class="mt-3" v-if="promedioCalculado">
+        <p>El promedio es: {{ promedio }}</p>
+        <p>Tu estado es: {{ estado }}</p>
+      </div>
+    </form>
+  </div>
+
+  <!-- Formulario de Registro -->
+<div v-if="selectedOption === 'registro'" class="container mt-4">
+  <h2>Formulario de Registro</h2>
+  <form>
+    <div class="form-group">
+      <label for="nombre">Nombre:</label>
+      <input type="text" class="form-control" id="nombre" v-model="nombre" required @blur="validarNombre">
+      <div class="error-message" v-if="nombreError">El campo Nombre es requerido</div> 
+    </div>
+    <div class="form-group">
+      <label for="correo">Correo:</label>
+      <input type="email" class="form-control" id="correo" v-model="correo" required @blur="validarCorreo">
+      <div class="error-message" v-if="correoError">El campo Correo es inválido o está vacío</div>
+    </div>
+    <div class="form-group">
+      <label for="contrasena">Contraseña:</label>
+      <input type="password" class="form-control" id="contrasena" v-model="contrasena" @blur="validarContrasena">
+    </div>
+    <div class="form-group">
+      <label for="repetirContrasena">Repetir Contraseña:</label>
+      <input type="password" class="form-control" id="repetirContrasena" v-model="repetirContrasena" @blur="validarContrasena">
+      <div class="error-message" v-if="contrasenaError">Las contraseñas no coinciden o están vacías</div>
+    </div>
+
+    <!-- Botón Enviar -->
+    <button type="button" class="btn btn-primary mt-3" @click="enviarRegistro">Enviar</button>
+  </form>
+</div>
+
+    <!-- Otro contenido de la página -->
+  </div>
+
+  <!-- Vue.js -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <!-- Bootstrap JS (requiere jQuery) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <!-- Importar main.js -->
+<script src="main.js"></script>
+</body>
+</html>   
